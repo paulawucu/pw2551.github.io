@@ -1,19 +1,26 @@
 ---
-title: "plotly"
-author: "Paula Wu"
-date: "10/28/2021"
-output: html_document
+title: "dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source: embed
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
-```{r}
+# if you put inside a website, it will no longer be a dashboard
+```{r setup, include=FALSE}
+library(flexdashboard)
 library(tidyverse)
 library(p8105.datasets)
 library(plotly)
 ```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
 ```{r}
 data(nyc_airbnb)
 
@@ -27,15 +34,7 @@ nyc_airbnb =
     neighbourhood_group == "Manhattan",
     room_type == "Entire home/apt",
     price %in% 100:500)
-```
-
-
-## make a scatterplot
-
-Here's a plotly scatterplot!
-
-```{r}
-nyc_airbnb %>%
+nyc_airbnb %>% 
   mutate(text_label = str_c("Price: $", price, "\nRating: ", rating)) %>% 
   plot_ly(
     x = ~lat, y = ~long, type = "scatter", mode = "markers",
@@ -43,33 +42,25 @@ nyc_airbnb %>%
   )
 ```
 
-## Plotly boxplot
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
 
 ```{r}
 nyc_airbnb %>% 
   mutate(
     neighbourhood = fct_reorder(neighbourhood, price)
   ) %>% 
-  plot_ly(y = ~price, color = ~neighbourhood, type = "box")   # click once to isolate out one boxplot
+  plot_ly(y = ~price, color = ~neighbourhood, type = "box") 
 ```
 
-Here comes a bar chart
+### Chart C
+
 ```{r}
 nyc_airbnb %>% 
   count(neighbourhood) %>% 
   mutate(neighbourhood = fct_reorder(neighbourhood, n)) %>% 
   plot_ly(x = ~neighbourhood, y = ~n, color = ~neighbourhood, type = "bar", colors = "viridis")
-```
-
-
-## ggplotly
-
-```{r}
-gg_lat_long = 
-  nyc_airbnb %>% 
-  ggplot(aes(x = lat, y = long, color = price)) +
-  geom_point()
-
-ggplotly(gg_lat_long)  # quick interactive plot
 ```
 

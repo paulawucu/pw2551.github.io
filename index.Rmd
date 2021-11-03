@@ -1,0 +1,24 @@
+---
+title: "My awesome website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# This is Paula's awesome website
+
+![](https://media.giphy.com/media/drXGoW1iudhKw/giphy.gif)
+
+I can link to useful things like [google](https://www.google.com/) and [p8105](https://www.p8105.com/).
+
+
+I can make an extra page on my site and link to that. Here's my [about](about.html), only need to write the name.html because they are inside the same repository.
+
+
+## Here's Mr.Plankton
+
+My cat's name is Mr.Plankton. Say hi.
+<img src="images/IMG_3908.JPG" style="width:75%">
+
+Use the build website button under "Build" tab.
